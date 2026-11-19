@@ -1,5 +1,5 @@
 /* خدمة الأوفلاين: التطبيق بيفتح من الكاش حتى من غير نت، وبيتحدّث لوحده لما النت يرجع */
-var CACHE = "masarifi-v1";
+var CACHE = "masarifi-v2";
 var FONTS = "masarifi-fonts";
 var SHELL = [
   "./",
@@ -15,7 +15,7 @@ var SHELL = [
 self.addEventListener("install", function (e) {
   e.waitUntil(
     caches.open(CACHE)
-      .then(function (c) { return c.addAll(SHELL); })
+      .then(function (c) { return c.addAll(SHELL.map(function (u) { return new Request(u, { cache: "reload" }); })); })
       .then(function () { return self.skipWaiting(); })
   );
 });
